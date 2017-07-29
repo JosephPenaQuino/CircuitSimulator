@@ -1,77 +1,86 @@
-codeCounter=0
-global.componentCounter= 0
+codeCounter = 0
+componentCounter = 0
 
-class Component():
+
+class Component(object):
     def __init__(self):
         self.nodesLinked = []
+        self.value = 0
+        self.type = 'none'
 
-    def setNodes(self,nodes):
+    def set_nodes(self, nodes):
         self.nodesLinked = nodes
 
-class nodes():
+
+class Nodes(object):
     def __init__(self):
         self.code = "xxxx"
         self.name = "-"
         self.componentsInto = []
-    def setCode(self,CodeN):
-        self.code = CodeN
 
-    def setName(self,nameN):
-        self.name = nameN
+    def set_code(self, code_n):
+        self.code = code_n
 
-    def setComponents(self,Component):
-        self.componentsInto.append(Component)
+    def set_name(self, name_n):
+        self.name = name_n
+
+    def set_components(self, component):
+        global componentCounter
+        self.componentsInto.append(component)
         componentCounter = componentCounter + 1
 
 
 class Resistors(Component):
-    def setOhms(self,numbersOhms=2200):
-        self.value = numbersOhms
+    def set_ohms(self, numbers_ohms=2200):
+        self.value = numbers_ohms
         self.type = 'Res'
 
+
 class VoltageSource(Component):
-    def setVoltage(self,numberVoltage = 22):
-        self.value = numberVoltage
+    def set_voltage(self, number_voltage=22):
+        self.value = number_voltage
         self.type = 'VSource'
 
 
-#Creating the nodes
-node1 = nodes()
-node2 = nodes()
+# Creating the nodes
+node1 = Nodes()
+node2 = Nodes()
 
-#Indexing the nodes
-lnode = {
+# Indexing the nodes
+l_node = {
     '1': node1,
     '2': node2
 
 }
 
-#Creating components
+# Creating components
 r1 = Resistors()
-r1.setOhms(1000)
+r1.set_ohms(1000)
 
-#Creting Sources
+# Creating Sources
 v1 = VoltageSource()
-v1.setVoltage(6)
+v1.set_voltage(6)
 
-lnode['1'].setComponents(r1)
-lnode['2'].setComponents(r1)
-lnode['1'].setComponents(v1)
-lnode['2'].setComponents(v1)
+l_node['1'].set_components(r1)
+l_node['2'].set_components(r1)
+l_node['1'].set_components(v1)
+l_node['2'].set_components(v1)
 
-print lnode['1'].componentsInto[0].value
-print lnode['1'].componentsInto[1].value
-print lnode['2'].componentsInto[0].value
-print lnode['2'].componentsInto[1].value
+print l_node['1'].componentsInto[0].value
+print l_node['1'].componentsInto[1].value
+print l_node['2'].componentsInto[0].value
+print l_node['2'].componentsInto[1].value
 
 tOhm = 0
 tVoltage = 0
 
 # Checking
-if lnode['1'].componentsInto[0].type == 'Res' and lnode['1'].componentsInto[0].type == lnode['2'].componentsInto[0].type:
-    tOhm += lnode['1'].componentsInto[0].value
+if l_node['1'].componentsInto[0].type == 'Res' and \
+                l_node['1'].componentsInto[0].type == l_node['2'].componentsInto[0].type:
+    tOhm += l_node['1'].componentsInto[0].value
 
-if lnode['1'].componentsInto[0].type == 'VSource' and lnode['1'].componentsInto[0].type == lnode['2'].componentsInto[0].type:
-    tVoltage += lnode['1'].componentsInto[0].value
+if l_node['1'].componentsInto[0].type == 'VSource' and \
+                l_node['1'].componentsInto[0].type == l_node['2'].componentsInto[0].type:
+    tVoltage += l_node['1'].componentsInto[0].value
 
 print componentCounter
