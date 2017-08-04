@@ -1,2 +1,2 @@
-# CircuitSimulator
-I wanna create a circuit Simulator using python 
+# Prototype Universal Circuit Board Desginer
+A brief program to generate a universal circuit board design
